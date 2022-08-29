@@ -45,6 +45,10 @@ KeycloakContext context = new KeycloakContext("https://keycloak.cimbbank.com.ph"
 - publicClient : 客户端是否不需要密码，生产环境应当设置成false
 - clientSecret : 非public客户端，keycloak会给该客户端生成一份密钥
 
+创建KeycloakContext对象需要的参数，可以从keycloak后管页面获取：
+
+![keycloak-config](readme_files/keycloak-config.png)
+
 #### 生成登录URL
 
 如果希望使用keycloak自带的登录页面，可以调用该方法生成keycloak的登录链接，前端跳转至该链接让用户进入登录流程。
@@ -79,7 +83,7 @@ IDToken idToken = context.verify(token.getAccessToken());
 context.refreshToken(token.getRefreshToken());
 ```
 
-**注销登录**
+#### 注销登录
 
 如果用户需要退出登录，需要调用该接口完成全局退出。由于accessToken有5分钟的有效期，其它模块并不会实时调用keycloak的刷新accessToken接口，因此其它模块会等待下次刷新accessToken的时候才能完成退出。
 
